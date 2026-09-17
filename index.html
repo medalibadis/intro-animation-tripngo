@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TripnGo - Zauri Miminoshvili-Inspired Logo Animation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tng-navy: #07325B;
+    --tng-darkblue: #0B3B66;
+    --tng-deep: #020713;
+    --tng-blue: #1E88C7;
+    --tng-sky: #0090D9;
+    --tng-green: #34D399;
+    --tng-yellow: #F5B819;
+    --tng-yellow-hover: #E5AA15;
+    --font-main: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: radial-gradient(circle at 50% 15%, #0d1e38 0%, #01040a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    padding: 20px 16px 36px;
+    color: #ffffff;
+    perspective: 1400px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .preview-header {
+    margin-bottom: 16px;
+    text-align: center;
+    z-index: 30;
+  }
+  .brand-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(30, 136, 199, 0.12);
+    border: 1px solid rgba(0, 144, 217, 0.35);
+    color: #38bdf8;
+    padding: 5px 16px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .brand-pill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--tng-green);
+    box-shadow: 0 0 10px var(--tng-green);
+    animation: livePulse 2s infinite ease-in-out;
+  }
+  @keyframes livePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+  }
+  .preview-title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .preview-desc {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 3px;
+  }
+
+  /* 3D Phone Chassis */
+  .device-wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.3, 1);
+    margin: 4px 0;
+  }
+
+  .device-container {
+    width: 390px;
+    height: 844px;
+    background: #000000;
+    border-radius: 52px;
+    box-shadow:
+      0 40px 95px -20px rgba(0, 0, 0, 0.98),
+      0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 0 0 12px #151e2e,
+      0 0 0 14px #060b14,
+      0 0 70px rgba(0, 144, 217, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 26%, transparent 48%);
+    pointer-events: none;
+    z-index: 150;
+    border-radius: 52px;
+  }
+
+  /* Screen Surface: Pure, Clean, Deep TripnGo Brand Navy */
+  .screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 40%, #0B3B66 0%, #07325B 45%, #020713 100%);
+  }
+
+  /* Ambient Radial Glow */
+  .bg-ambient {
+    position: absolute;
+    width: 160%;
+    height: 160%;
+    top: -30%;
+    left: -30%;
+    background: radial-gradient(circle at 50% 45%, rgba(0, 144, 217, 0.22) 0%, rgba(52, 211, 153, 0.08) 35%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Dynamic Island */
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 116px;
+    height: 30px;
+    background: #000000;
+    border-radius: 20px;
+    z-index: 110;
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
+  }
+
+  /* Status Bar */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 105;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.95;
+    pointer-events: none;
+  }
+
+  /* Motion Canvas for Calligraphic Stroke, Glowing Trail & Jet */
+  #motionCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  /* Calligraphic Logo Master Wrapper */
+  .logo-master-cluster {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    z-index: 5;
+    pointer-events: none;
+    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
+    will-change: transform;
+  }
+
+  /* Letter Nodes: Styled with dynamic write-on wipe */
+  .letter-item {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.9);
+    clip-path: inset(0 100% 0 0); /* Write-on wipe from left to right! */
+    will-change: clip-path, opacity, transform;
+    user-select: none;
+  }
+
+  /* Soft Light Halo behind Logo */
+  .logo-glow {
+    position: absolute;
+    width: 320px;
+    height: 120px;
+    background: radial-gradient(ellipse at center, rgba(52, 211, 153, 0.28) 0%, rgba(30, 136, 199, 0.2) 40%, rgba(245, 184, 25, 0.08) 65%, transparent 80%);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+    top: 48%;
+    left: 50%;
+    z-index: 2;
+    pointer-events: none;
+    filter: blur(16px);
+    will-change: opacity, transform;
+  }
+
+  /* =========================================================================
+     Welcome Screen Overlay (Post-Animation Travel Interface)
+     ========================================================================= */
+  .welcome-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #07325B 0%, #052445 42%, #020713 100%);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 22px 32px;
+    box-sizing: border-box;
+    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(0.95) translateY(16px);
+  }
+
+  .welcome-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+  }
+
+  /* Staggered entrance */
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .welcome-screen.active .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .welcome-screen.active .stagger-1 { transition-delay: 0.06s; }
+  .welcome-screen.active .stagger-2 { transition-delay: 0.14s; }
+  .welcome-screen.active .stagger-3 { transition-delay: 0.22s; }
+  .welcome-screen.active .stagger-4 { transition-delay: 0.30s; }
+  .welcome-screen.active .stagger-5 { transition-delay: 0.38s; }
+
+  /* Brand Header */
+  .welcome-brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .welcome-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .welcome-tag {
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(52, 211, 153, 0.12);
+    color: var(--tng-green);
+    border: 1px solid rgba(52, 211, 153, 0.35);
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .welcome-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tng-green);
+    box-shadow: 0 0 8px var(--tng-green);
+  }
+
+  /* Hero Section */
+  .welcome-hero {
+    margin-top: 22px;
+  }
+
+  .welcome-title {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .welcome-title .highlight-blue {
+    color: #38bdf8;
+  }
+  .welcome-title .highlight-green {
+    color: var(--tng-green);
+  }
+
+  .welcome-subtitle {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  /* Quick Category Tabs */
+  .category-tabs {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .tab-pill {
+    padding: 8px 16px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .tab-pill:hover, .tab-pill.active {
+    background: linear-gradient(135deg, #1E88C7 0%, #0090D9 100%);
+    color: #ffffff;
+    border-color: #38bdf8;
+    box-shadow: 0 6px 16px rgba(0, 144, 217, 0.35);
+  }
+
+  /* Destination Carousel */
+  .carousel-label-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .carousel-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #94a3b8;
+    text-transform: uppercase;
+  }
+  .carousel-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: #38bdf8;
+    text-decoration: none;
+  }
+
+  .destinations-carousel {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    overflow-x: hidden;
+  }
+
+  .destination-card {
+    min-width: 158px;
+    height: 185px;
+    border-radius: 18px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .destination-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .dest-paris {
+    background-image: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(2, 9, 20, 0.94) 100%), url('assets/paris.jpg');
+  }
+
+  .dest-dubai {
+    background-image: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(2, 9, 20, 0.94) 100%), url('assets/dubai.jpg');
+  }
+
+  .dest-tag {
+    font-size: 9px;
+    font-weight: 800;
+    color: #F5B819;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+
+  .dest-city {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+
+  .dest-price {
+    font-size: 11px;
+    color: #cbd5e1;
+    margin-top: 2px;
+  }
+  .dest-price strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* Bottom Actions */
+  .welcome-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .primary-btn {
+    width: 100%;
+    height: 52px;
+    background: linear-gradient(135deg, #F5B819 0%, #E5AA15 100%);
+    border: none;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #07325B;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    box-shadow: 0 8px 24px rgba(245, 184, 25, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(245, 184, 25, 0.55);
+  }
+
+  .secondary-link {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .secondary-link span {
+    color: #38bdf8;
+    cursor: pointer;
+  }
+
+  /* Controls Panel */
+  .controls-bar {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+  }
+
+  .action-btn {
+    background: #101c30;
+    color: #f1f5f9;
+    border: 1px solid #203350;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .action-btn:hover {
+    background: #182b4a;
+    border-color: #38bdf8;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  .speed-group {
+    display: inline-flex;
+    background: #0d1726;
+    border: 1px solid #1d2e46;
+    border-radius: 20px;
+    padding: 3px;
+  }
+  .spd-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .spd-btn.active {
+    background: #1E88C7;
+    color: #ffffff;
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-header">
+  <div class="brand-pill"><div class="dot"></div> Zauri Miminoshvili Signature Motion • 2.5s</div>
+  <h1 class="preview-title">TripnGo Brand Motion</h1>
+  <p class="preview-desc">Calligraphic Write-On &bull; Stylus Spark &bull; Orbital Ribbon Flight &bull; Spring Settle</p>
+</div>
+
+<!-- 3D Device Container -->
+<div class="device-wrapper" id="deviceWrapper">
+  <div class="device-container">
+    <div class="glass-glare"></div>
+
+    <div class="screen">
+      <!-- Clean Deep Navy Atmosphere -->
+      <div class="bg-ambient" id="bgAmbient"></div>
+
+      <!-- Dynamic Island & Status Bar -->
+      <div class="dynamic-island"></div>
+      <div class="status-bar">
+        <span>9:41</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M1 4h2v7H1V4zm4-2h2v9H5V2zm4-2h2v11H9V0zm4 4h2v7h-2V4z"/></svg>
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M0 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1-5 0zm5 6a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zm5-3a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0z"/></svg>
+          <svg width="22" height="11" viewBox="0 0 22 11" fill="currentColor"><rect x="1" y="1" width="18" height="9" rx="2" stroke="currentColor" stroke-width="1" fill="none"/><rect x="3" y="3" width="14" height="5" rx="1"/><path d="M20 4v3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/></svg>
+        </div>
+      </div>
+
+      <!-- Soft Light Halo behind Logo -->
+      <div class="logo-glow" id="logoGlow"></div>
+
+      <!-- Motion Canvas for Calligraphic Stylus, Glowing Flight Ribbon & Airplane -->
+      <canvas id="motionCanvas" width="390" height="844"></canvas>
+
+      <!-- Calligraphic Write-On Logo Cluster (T -> r -> i -> p -> n -> G -> o) -->
+      <div class="logo-master-cluster" id="logoCluster">
+        <img src="assets/let-t.png" alt="T" class="letter-item" id="letT">
+        <img src="assets/let-r.png" alt="r" class="letter-item" id="letR">
+        <img src="assets/let-i.png" alt="i" class="letter-item" id="letI">
+        <img src="assets/let-p.png" alt="p" class="letter-item" id="letP">
+        <img src="assets/let-n.png" alt="n" class="letter-item" id="letN">
+        <img src="assets/let-g.png" alt="G" class="letter-item" id="letG">
+        <img src="assets/let-o.png" alt="o" class="letter-item" id="letO">
+      </div>
+
+      <!-- Welcome Screen (Seamless Cross-Fade Transition at 2.3s) -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-brand-header stagger-item stagger-1">
+          <img src="assets/logo-white.png" alt="TripnGo" class="welcome-logo">
+          <span class="welcome-tag">Ready for Flight</span>
+        </div>
+
+        <div class="welcome-hero stagger-item stagger-2">
+          <h1 class="welcome-title">
+            Explore the world with <span class="highlight-blue">Trip</span><span class="highlight-green">nGo</span>.
+          </h1>
+          <p class="welcome-subtitle">
+            Book flights, luxury hotels & premium experiences worldwide instantly.
+          </p>
+        </div>
+
+        <!-- Quick Category Tabs -->
+        <div class="category-tabs stagger-item stagger-3">
+          <div class="tab-pill active">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            Flights
+          </div>
+          <div class="tab-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M9 21V11m6 10V11M7 7l5-4 5 4"/></svg>
+            Hotels
+          </div>
+          <div class="tab-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Deals
+          </div>
+        </div>
+
+        <div class="carousel-label-row stagger-item stagger-4">
+          <div class="carousel-label">Featured Destinations</div>
+          <a href="#" class="carousel-link">Explore all</a>
+        </div>
+
+        <div class="destinations-carousel stagger-item stagger-4">
+          <div class="destination-card dest-paris">
+            <div class="dest-tag">Top Choice</div>
+            <div class="dest-city">Paris, France</div>
+            <div class="dest-price">From <strong>$320</strong></div>
+          </div>
+          <div class="destination-card dest-dubai">
+            <div class="dest-tag">Popular</div>
+            <div class="dest-city">Dubai, UAE</div>
+            <div class="dest-price">From <strong>$460</strong></div>
+          </div>
+        </div>
+
+        <div class="welcome-footer stagger-item stagger-5">
+          <button class="primary-btn">
+            <span>Explore Flights</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <div class="secondary-link">Already have an account? <span>Sign In</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Controls Panel -->
+<div class="controls-bar">
+  <button id="replayBtn" class="action-btn" onclick="runAnimation()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+    Replay Animation
+  </button>
+
+  <div class="speed-group">
+    <button class="spd-btn" onclick="setSpeed(0.5, this)">0.5x Slow-Mo</button>
+    <button class="spd-btn active" onclick="setSpeed(1.0, this)">1.0x Normal</button>
+    <button class="spd-btn" onclick="setSpeed(1.5, this)">1.5x Fast</button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('motionCanvas');
+  const ctx = canvas.getContext('2d');
+  const logoCluster = document.getElementById('logoCluster');
+  const logoGlow = document.getElementById('logoGlow');
+  const welcomeScreen = document.getElementById('welcomeScreen');
+  const deviceWrapper = document.getElementById('deviceWrapper');
+
+  // Letter Nodes
+  const letters = [
+    document.getElementById('letT'),
+    document.getElementById('letR'),
+    document.getElementById('letI'),
+    document.getElementById('letP'),
+    document.getElementById('letN'),
+    document.getElementById('letG'),
+    document.getElementById('letO')
+  ];
+
+  const BASE_DURATION = 2500; // 2.5s master sequence
+  let speedMultiplier = 1.0;
+  let startTime = null;
+  let animId = null;
+
+  // Harmonic Damped Spring Easing (Zauri Miminoshvili Physics Formula)
+  function spring(t, decay = 7, freq = 14) {
+    if (t <= 0) return 0;
+    if (t >= 1) return 1;
+    return 1 - Math.exp(-decay * t) * Math.cos(freq * t);
+  }
+
+  // Letter horizontal centers for stylus tracking
+  // Logo cluster is centered at x=195, y=405, total width ~280px
+  const letterSpecs = [
+    { name: 'T', xOffset: -105, duration: 0.22, delay: 0.25 },
+    { name: 'r', xOffset: -68,  duration: 0.18, delay: 0.38 },
+    { name: 'i', xOffset: -45,  duration: 0.16, delay: 0.48 },
+    { name: 'p', xOffset: -12,  duration: 0.20, delay: 0.56 },
+    { name: 'n', xOffset: 25,   duration: 0.20, delay: 0.68 },
+    { name: 'G', xOffset: 65,   duration: 0.22, delay: 0.80 },
+    { name: 'o', xOffset: 105,  duration: 0.20, delay: 0.94 }
+  ];
+
+  // =========================================================================
+  // Pure Continuous Smooth Cubic Bézier Flight Path around the Logo
+  // Canvas: 390 x 844. Logo is centered at (195, 405)
+  // Perfectly smooth, continuous C1-spline
+  // =========================================================================
+  const curve = {
+    s1: {
+      p0: { x: 300, y: 405 },    // Takes off right from the tail of the 'o' letter
+      p1: { x: 370, y: 440 },
+      p2: { x: 350, y: 550 },
+      p3: { x: 230, y: 520 }
+    },
+    s2: {
+      p0: { x: 230, y: 520 },
+      p1: { x: 110, y: 490 },
+      p2: { x: 40,  y: 350 },
+      p3: { x: 150, y: 270 }
+    },
+    s3: {
+      p0: { x: 150, y: 270 },
+      p1: { x: 260, y: 190 },
+      p2: { x: 360, y: 220 },
+      p3: { x: 430, y: 140 }     // Ascends gracefully into the sky
+    }
+  };
+
+  function getCubicPoint(p0, p1, p2, p3, t) {
+    const cx = 3 * (p1.x - p0.x);
+    const bx = 3 * (p2.x - p1.x) - cx;
+    const ax = p3.x - p0.x - cx - bx;
+
+    const cy = 3 * (p1.y - p0.y);
+    const by = 3 * (p2.y - p1.y) - cy;
+    const ay = p3.y - p0.y - cy - by;
+
+    const xt = ax * Math.pow(t, 3) + bx * Math.pow(t, 2) + cx * t + p0.x;
+    const yt = ay * Math.pow(t, 3) + by * Math.pow(t, 2) + cy * t + p0.y;
+    return { x: xt, y: yt };
+  }
+
+  function getContinuousFlightPoint(t) {
+    if (t < 0.333) {
+      return getCubicPoint(curve.s1.p0, curve.s1.p1, curve.s1.p2, curve.s1.p3, t * 3);
+    } else if (t < 0.666) {
+      return getCubicPoint(curve.s2.p0, curve.s2.p1, curve.s2.p2, curve.s2.p3, (t - 0.333) * 3);
+    } else {
+      return getCubicPoint(curve.s3.p0, curve.s3.p1, curve.s3.p2, curve.s3.p3, (t - 0.666) * 3);
+    }
+  }
+
+  // =========================================================================
+  // Draw Stylus Luminous Spark (Leading drawing bead during write-on)
+  // =========================================================================
+  function drawStylusSpark(x, y, radius, color, glowAlpha) {
+    ctx.save();
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 14;
+
+    // Outer glow aura
+    ctx.beginPath();
+    ctx.arc(x, y, radius * 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(56, 189, 248, ${glowAlpha * 0.35})`;
+    ctx.fill();
+
+    // Core spark bead
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  // =========================================================================
+  // Draw Small Elegant Modern Airplane
+  // =========================================================================
+  function drawAirplane(x, y, angle, scale, opacity) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.scale(scale, scale);
+    ctx.globalAlpha = opacity;
+
+    ctx.shadowColor = 'rgba(0, 144, 217, 0.5)';
+    ctx.shadowBlur = 8;
+
+    // Jet body
+    ctx.beginPath();
+    ctx.moveTo(18, 0);          // Nose
+    ctx.lineTo(5, -3);          // Cockpit port
+    ctx.lineTo(-4, -13);        // Left wingtip
+    ctx.lineTo(-7, -13);
+    ctx.lineTo(-4, -2.5);       // Wing root
+    ctx.lineTo(-16, -2.5);
+    ctx.lineTo(-21, -6.5);      // Left stabilizer
+    ctx.lineTo(-24, -6.5);
+    ctx.lineTo(-21, 0);         // Tail center
+    ctx.lineTo(-24, 6.5);
+    ctx.lineTo(-21, 6.5);       // Right stabilizer
+    ctx.lineTo(-16, 2.5);
+    ctx.lineTo(-4, 2.5);
+    ctx.lineTo(-7, 13);
+    ctx.lineTo(-4, 13);         // Right wingtip
+    ctx.lineTo(5, 3);
+    ctx.closePath();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+
+    // Fuselage accent stripe (TripnGo Sky Blue)
+    ctx.beginPath();
+    ctx.moveTo(7, 0);
+    ctx.lineTo(-10, 0);
+    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = '#1E88C7';
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // =========================================================================
+  // Master Animation Loop (60 FPS, 2.5s Duration)
+  // =========================================================================
+  function animate(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const duration = BASE_DURATION / speedMultiplier;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1.0);
+    const sec = progress * 2.5;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // =========================================================================
+    // Phase 1: 0.25s - 1.15s: Marcos Lavorato Calligraphic Stylus & Letter Reveal
+    // =========================================================================
+    let activeStylus = null;
+
+    letterSpecs.forEach((spec, i) => {
+      const node = letters[i];
+      if (sec >= spec.delay) {
+        const u = Math.min((sec - spec.delay) / spec.duration, 1.0);
+        const s = spring(u, 7, 14);
+
+        node.style.opacity = Math.min(u * 2.8, 1.0);
+        const wipePercent = (1 - u) * 100;
+        node.style.clipPath = `inset(0 ${wipePercent}% 0 0)`;
+
+        const scaleVal = 0.92 + 0.08 * s;
+        node.style.transform = `scale(${scaleVal})`;
+
+        // Track the leading stylus position across the letters
+        if (u > 0 && u < 1.0) {
+          const letterX = 195 + spec.xOffset;
+          const letterY = 405 + Math.sin(u * Math.PI * 2) * 8;
+          activeStylus = { x: letterX + (u - 0.5) * 35, y: letterY, alpha: Math.sin(u * Math.PI) };
+        }
+      } else {
+        node.style.opacity = '0';
+        node.style.clipPath = 'inset(0 100% 0 0)';
+      }
+    });
+
+    // Draw stylus spark if writing
+    if (activeStylus && sec < 1.15) {
+      drawStylusSpark(activeStylus.x, activeStylus.y, 3.5, '#38bdf8', activeStylus.alpha);
+    }
+
+    // Ambient Halo activates gently as letters finish assembling
+    if (sec >= 0.5) {
+      const u = Math.min((sec - 0.5) / 0.6, 1.0);
+      logoGlow.style.opacity = `${u * 0.75}`;
+      logoGlow.style.transform = `translate(-50%, -50%) scale(${0.85 + 0.15 * u})`;
+    }
+
+    // =========================================================================
+    // Phase 2: 1.15s - 2.15s: Small Elegant Jet & Single Continuous Glowing Flight Trail
+    // =========================================================================
+    if (sec >= 1.15 && sec <= 2.2) {
+      const flightP = Math.min((sec - 1.15) / 0.95, 1.0);
+      // Smooth cubic acceleration & deceleration
+      const easeFlight = flightP < 0.5
+        ? 4 * flightP * flightP * flightP
+        : 1 - Math.pow(-2 * flightP + 2, 3) / 2;
+
+      const totalSamples = 90;
+      const currentSamples = Math.floor(totalSamples * easeFlight);
+
+      if (currentSamples > 1) {
+        ctx.save();
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        ctx.shadowColor = 'rgba(0, 144, 217, 0.45)';
+        ctx.shadowBlur = 8;
+
+        for (let i = 0; i < currentSamples - 1; i++) {
+          const t1 = i / totalSamples;
+          const t2 = (i + 1) / totalSamples;
+
+          const pt1 = getContinuousFlightPoint(t1);
+          const pt2 = getContinuousFlightPoint(t2);
+
+          // Sleek tapered line width (1.8px to 3.0px)
+          ctx.lineWidth = (1.8 + 1.2 * Math.sin((i / currentSamples) * Math.PI));
+
+          // Clean TripnGo Brand Gradient: Sky Blue -> Mint Green -> Golden Yellow
+          const grad = ctx.createLinearGradient(pt1.x, pt1.y, pt2.x, pt2.y);
+          if (t1 < 0.38) {
+            grad.addColorStop(0, 'rgba(0, 144, 217, 0.15)');
+            grad.addColorStop(1, 'rgba(0, 144, 217, 0.95)');
+          } else if (t1 < 0.72) {
+            grad.addColorStop(0, 'rgba(0, 144, 217, 0.95)');
+            grad.addColorStop(1, 'rgba(52, 211, 153, 0.98)');
+          } else {
+            grad.addColorStop(0, 'rgba(52, 211, 153, 0.98)');
+            grad.addColorStop(1, 'rgba(245, 184, 25, 1)');
+          }
+
+          ctx.beginPath();
+          ctx.moveTo(pt1.x, pt1.y);
+          ctx.lineTo(pt2.x, pt2.y);
+          ctx.strokeStyle = grad;
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+
+      // Draw Small Elegant Jet at Head of Trail
+      if (easeFlight > 0 && easeFlight < 1) {
+        const curPt = getContinuousFlightPoint(easeFlight);
+        const nextPt = getContinuousFlightPoint(Math.min(easeFlight + 0.012, 1.0));
+        const heading = Math.atan2(nextPt.y - curPt.y, nextPt.x - curPt.x);
+
+        const planeOpacity = flightP < 0.12 ? flightP * 8.3 : (flightP > 0.88 ? (1 - flightP) * 8.3 : 1.0);
+        const planeScale = 0.72 + (0.28 * Math.sin(flightP * Math.PI));
+
+        drawAirplane(curPt.x, curPt.y, heading, planeScale, Math.min(planeOpacity, 1.0));
+      }
+    }
+
+    // =========================================================================
+    // Phase 3: 2.05s - 2.5s: Elastic Settle Pop & Seamless Welcome Transition
+    // =========================================================================
+    if (sec >= 2.05) {
+      const settleP = Math.min((sec - 2.05) / 0.45, 1.0);
+      // Damped harmonic bounce formula: 1 + A * e^(-decay*t) * sin(freq*t)
+      const bounce = Math.exp(-6 * settleP) * Math.sin(12 * settleP * Math.PI) * 0.05;
+
+      const clusterScale = 1.0 + bounce;
+      logoCluster.style.transform = `translate(-50%, -50%) scale(${clusterScale})`;
+
+      logoGlow.style.opacity = `${0.65 + bounce * 3}`;
+      logoGlow.style.transform = `translate(-50%, -50%) scale(${1.0 + bounce * 2})`;
+
+      if (sec >= 2.28) {
+        welcomeScreen.classList.add('active');
+      }
+    }
+
+    if (progress < 1.0) {
+      animId = requestAnimationFrame(animate);
+    }
+  }
+
+  function runAnimation() {
+    if (animId) cancelAnimationFrame(animId);
+    startTime = null;
+    letters.forEach(node => {
+      node.style.opacity = '0';
+      node.style.clipPath = 'inset(0 100% 0 0)';
+      node.style.transform = 'scale(0.92)';
+    });
+    logoCluster.style.transform = 'translate(-50%, -50%) scale(1)';
+    logoGlow.style.opacity = '0';
+    welcomeScreen.classList.remove('active');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    animId = requestAnimationFrame(animate);
+  }
+
+  function setSpeed(spd, btn) {
+    speedMultiplier = spd;
+    document.querySelectorAll('.spd-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    runAnimation();
+  }
+
+  // Interactive 3D tilt on mouse hover
+  window.addEventListener('mousemove', (e) => {
+    const rect = deviceWrapper.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const dx = (e.clientX - cx) / (window.innerWidth / 2);
+    const dy = (e.clientY - cy) / (window.innerHeight / 2);
+
+    const rx = -dy * 8;
+    const ry = dx * 8;
+
+    deviceWrapper.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    deviceWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+
+  // Start on initial page load
+  window.addEventListener('load', () => {
+    runAnimation();
+  });
+</script>
+
+</body>
+</html>
