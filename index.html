@@ -3,31 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TripnGo - Zauri Miminoshvili-Inspired Logo Animation</title>
+<title>TripnGo - Brand Logo Animation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --tng-navy: #07325B;
-    --tng-darkblue: #0B3B66;
-    --tng-deep: #020713;
-    --tng-blue: #1E88C7;
-    --tng-sky: #0090D9;
+    --bg-deep: #160B30;
+    --bg-surface: #1E0F3D;
+    --tng-blue: #0090D9;
+    --tng-sky: #38BDF8;
     --tng-green: #34D399;
     --tng-yellow: #F5B819;
-    --tng-yellow-hover: #E5AA15;
+    --tng-purple: #A78BFA;
     --font-main: 'Plus Jakarta Sans', 'Poppins', -apple-system, sans-serif;
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: radial-gradient(circle at 50% 15%, #0d1e38 0%, #01040a 100%);
+    background: #0B0417;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,414 +31,13 @@
     font-family: var(--font-main);
     overflow-x: hidden;
     padding: 24px 16px;
-    color: #ffffff;
+    color: #fff;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Phone Chassis */
-  .device-wrapper {
-    position: relative;
-    margin: 0 auto;
-  }
-
-  .device-container {
-    width: 390px;
-    height: 844px;
-    background: #000000;
-    border-radius: 52px;
-    box-shadow:
-      0 40px 95px -20px rgba(0, 0, 0, 0.98),
-      0 0 0 1px rgba(255, 255, 255, 0.14),
-      0 0 0 12px #151e2e,
-      0 0 0 14px #060b14,
-      0 0 70px rgba(0, 144, 217, 0.2);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-glare {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 26%, transparent 48%);
-    pointer-events: none;
-    z-index: 150;
-    border-radius: 52px;
-  }
-
-  /* Screen Surface: Pure, Clean, Deep TripnGo Brand Navy */
-  .screen {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    background: radial-gradient(circle at 50% 40%, #0B3B66 0%, #07325B 45%, #020713 100%);
-  }
-
-  /* Ambient Radial Glow */
-  .bg-ambient {
-    position: absolute;
-    width: 160%;
-    height: 160%;
-    top: -30%;
-    left: -30%;
-    background: radial-gradient(circle at 50% 45%, rgba(0, 144, 217, 0.22) 0%, rgba(52, 211, 153, 0.08) 35%, transparent 70%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* Dynamic Island */
-  .dynamic-island {
-    position: absolute;
-    top: 11px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 116px;
-    height: 30px;
-    background: #000000;
-    border-radius: 20px;
-    z-index: 110;
-    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
-  }
-
-  /* Status Bar */
-  .status-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 48px;
-    padding: 0 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 105;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 600;
-    opacity: 0.95;
-    pointer-events: none;
-  }
-
-  /* Motion Canvas for Calligraphic Stroke, Glowing Trail & Jet */
-  #motionCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 4;
-    pointer-events: none;
-  }
-
-  /* Calligraphic Logo Master Wrapper */
-  .logo-master-cluster {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 52px;
-    z-index: 5;
-    pointer-events: none;
-    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
-    will-change: transform;
-  }
-
-  /* Letter Nodes: Styled with dynamic write-on wipe */
-  .letter-item {
-    height: 52px;
-    width: auto;
-    object-fit: contain;
-    opacity: 0;
-    transform: scale(0.9);
-    clip-path: inset(0 100% 0 0); /* Write-on wipe from left to right! */
-    will-change: clip-path, opacity, transform;
-    user-select: none;
-  }
-
-  /* Soft Light Halo behind Logo */
-  .logo-glow {
-    position: absolute;
-    width: 320px;
-    height: 120px;
-    background: radial-gradient(ellipse at center, rgba(52, 211, 153, 0.28) 0%, rgba(30, 136, 199, 0.2) 40%, rgba(245, 184, 25, 0.08) 65%, transparent 80%);
-    border-radius: 50%;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.85);
-    top: 48%;
-    left: 50%;
-    z-index: 2;
-    pointer-events: none;
-    filter: blur(16px);
-    will-change: opacity, transform;
-  }
-
-  /* =========================================================================
-     Welcome Screen Overlay (Post-Animation Travel Interface)
-     ========================================================================= */
-  .welcome-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, #07325B 0%, #052445 42%, #020713 100%);
-    z-index: 10;
-    opacity: 0;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    padding: 56px 22px 32px;
-    box-sizing: border-box;
-    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    transform: scale(0.95) translateY(16px);
-  }
-
-  .welcome-screen.active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: scale(1) translateY(0);
-  }
-
-  /* Staggered entrance */
-  .stagger-item {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .welcome-screen.active .stagger-item {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .welcome-screen.active .stagger-1 { transition-delay: 0.06s; }
-  .welcome-screen.active .stagger-2 { transition-delay: 0.14s; }
-  .welcome-screen.active .stagger-3 { transition-delay: 0.22s; }
-  .welcome-screen.active .stagger-4 { transition-delay: 0.30s; }
-  .welcome-screen.active .stagger-5 { transition-delay: 0.38s; }
-
-  /* Brand Header */
-  .welcome-brand-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 6px;
-  }
-
-  .welcome-logo {
-    height: 32px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .welcome-tag {
-    font-size: 11px;
-    font-weight: 700;
-    background: rgba(52, 211, 153, 0.12);
-    color: var(--tng-green);
-    border: 1px solid rgba(52, 211, 153, 0.35);
-    padding: 4px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .welcome-tag::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--tng-green);
-    box-shadow: 0 0 8px var(--tng-green);
-  }
-
-  /* Hero Section */
-  .welcome-hero {
-    margin-top: 22px;
-  }
-
-  .welcome-title {
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-  }
-
-  .welcome-title .highlight-blue {
-    color: #38bdf8;
-  }
-  .welcome-title .highlight-green {
-    color: var(--tng-green);
-  }
-
-  .welcome-subtitle {
-    color: #cbd5e1;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-top: 8px;
-    font-weight: 400;
-  }
-
-  /* Quick Category Tabs */
-  .category-tabs {
-    display: flex;
-    gap: 8px;
-    margin-top: 20px;
-  }
-
-  .tab-pill {
-    padding: 8px 16px;
-    border-radius: 14px;
-    font-size: 13px;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.08);
-    color: #e2e8f0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .tab-pill:hover, .tab-pill.active {
-    background: linear-gradient(135deg, #1E88C7 0%, #0090D9 100%);
-    color: #ffffff;
-    border-color: #38bdf8;
-    box-shadow: 0 6px 16px rgba(0, 144, 217, 0.35);
-  }
-
-  /* Destination Carousel */
-  .carousel-label-row {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .carousel-label {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-    color: #94a3b8;
-    text-transform: uppercase;
-  }
-  .carousel-link {
-    font-size: 12px;
-    font-weight: 600;
-    color: #38bdf8;
-    text-decoration: none;
-  }
-
-  .destinations-carousel {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-    overflow-x: hidden;
-  }
-
-  .destination-card {
-    min-width: 158px;
-    height: 185px;
-    border-radius: 18px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  .destination-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .dest-paris {
-    background-image: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(2, 9, 20, 0.94) 100%), url('assets/paris.jpg');
-  }
-
-  .dest-dubai {
-    background-image: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(2, 9, 20, 0.94) 100%), url('assets/dubai.jpg');
-  }
-
-  .dest-tag {
-    font-size: 9px;
-    font-weight: 800;
-    color: #F5B819;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-  }
-
-  .dest-city {
-    font-size: 16px;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.2;
-  }
-
-  .dest-price {
-    font-size: 11px;
-    color: #cbd5e1;
-    margin-top: 2px;
-  }
-  .dest-price strong {
-    color: #ffffff;
-    font-weight: 700;
-  }
-
-  /* Bottom Actions */
-  .welcome-footer {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .primary-btn {
-    width: 100%;
-    height: 52px;
-    background: linear-gradient(135deg, #F5B819 0%, #E5AA15 100%);
-    border: none;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    color: #07325B;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.3px;
-    box-shadow: 0 8px 24px rgba(245, 184, 25, 0.4);
-    cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(245, 184, 25, 0.55);
-  }
-
-  .secondary-link {
-    text-align: center;
-    color: #94a3b8;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .secondary-link span {
-    color: #38bdf8;
-    cursor: pointer;
-  }
-
-  /* Controls Panel (Top) */
+  /* Top Controls Bar */
   .controls-bar {
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -451,11 +45,10 @@
     justify-content: center;
     z-index: 30;
   }
-
   .action-btn {
-    background: #101c30;
-    color: #f1f5f9;
-    border: 1px solid #203350;
+    background: #200E42;
+    color: #E2E8F0;
+    border: 1px solid #3E1E74;
     padding: 10px 20px;
     border-radius: 20px;
     font-size: 13px;
@@ -465,25 +58,25 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
   }
   .action-btn:hover {
-    background: #182b4a;
-    border-color: #38bdf8;
-    color: #ffffff;
+    background: #2E155E;
+    border-color: var(--tng-sky);
+    color: #fff;
     transform: translateY(-1px);
   }
-
   .speed-group {
     display: inline-flex;
-    background: #0d1726;
-    border: 1px solid #1d2e46;
+    background: #180B33;
+    border: 1px solid #331862;
     border-radius: 20px;
     padding: 3px;
   }
   .spd-btn {
     background: transparent;
     border: none;
-    color: #94a3b8;
+    color: #A78BFA;
     padding: 5px 12px;
     border-radius: 16px;
     font-size: 12px;
@@ -491,82 +84,304 @@
     cursor: pointer;
     transition: all 0.15s ease;
   }
+  .spd-btn:hover { color: #fff; }
   .spd-btn.active {
-    background: #1E88C7;
-    color: #ffffff;
+    background: var(--tng-blue);
+    color: #fff;
   }
+  .phase-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #DDD6FE;
+    background: rgba(167,139,250,0.15);
+    border: 1px solid rgba(167,139,250,0.32);
+    padding: 6px 15px;
+    border-radius: 20px;
+    letter-spacing: 0.2px;
+  }
+
+  /* Phone Chassis */
+  .device-wrapper { position: relative; margin: 0 auto; }
+  .device-container {
+    width: 390px;
+    height: 844px;
+    background: #000;
+    border-radius: 52px;
+    box-shadow:
+      0 40px 90px -20px rgba(0,0,0,0.98),
+      0 0 0 1px rgba(255,255,255,0.1),
+      0 0 0 12px #180C36,
+      0 0 0 14px #09031C,
+      0 0 60px rgba(167,139,250,0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .glass-glare {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 150;
+    border-radius: 52px;
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-deep);
+  }
+  .dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 116px;
+    height: 30px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 110;
+  }
+  .status-bar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 48px;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 105;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  #motionCanvas {
+    position: absolute;
+    inset: 0;
+    width: 390px;
+    height: 844px;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* Welcome Screen */
+  .welcome-screen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #160B30 0%, #110726 50%, #0A0318 100%);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 22px 32px;
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    transform: scale(0.96) translateY(14px);
+  }
+  .welcome-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+  }
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+  }
+  .welcome-screen.active .stagger-item { opacity: 1; transform: translateY(0); }
+  .welcome-screen.active .stagger-1 { transition-delay: 0.06s; }
+  .welcome-screen.active .stagger-2 { transition-delay: 0.14s; }
+  .welcome-screen.active .stagger-3 { transition-delay: 0.22s; }
+  .welcome-screen.active .stagger-4 { transition-delay: 0.30s; }
+  .welcome-screen.active .stagger-5 { transition-delay: 0.38s; }
+
+  .welcome-brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .welcome-logo { height: 32px; width: auto; }
+  .welcome-tag {
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(52,211,153,0.14);
+    color: var(--tng-green);
+    border: 1px solid rgba(52,211,153,0.35);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .welcome-hero { margin-top: 34px; }
+  .welcome-title {
+    font-size: 29px;
+    font-weight: 800;
+    line-height: 1.22;
+    letter-spacing: -0.6px;
+  }
+  .highlight-blue { color: var(--tng-sky); }
+  .highlight-green { color: var(--tng-green); }
+  .welcome-subtitle {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #CBD5E1;
+    font-weight: 500;
+  }
+  .category-tabs { display: flex; gap: 8px; margin-top: 22px; }
+  .tab-pill {
+    padding: 8px 16px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.08);
+    color: #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .tab-pill.active {
+    background: linear-gradient(135deg, #0090D9, #38BDF8);
+    color: #fff;
+    border-color: #38bdf8;
+    box-shadow: 0 6px 16px rgba(0,144,217,0.35);
+  }
+  .carousel-label-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .carousel-label { font-size: 14px; font-weight: 700; color: #fff; }
+  .carousel-link { font-size: 12px; font-weight: 600; color: var(--tng-sky); text-decoration: none; }
+  .destinations-carousel {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .destinations-carousel::-webkit-scrollbar { display: none; }
+  .destination-card {
+    flex: 0 0 160px;
+    height: 190px;
+    border-radius: 20px;
+    position: relative;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+  .dest-paris {
+    background-image: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(10, 4, 24, 0.95) 100%), url('assets/paris.jpg');
+  }
+  .dest-dubai {
+    background-image: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(10, 4, 24, 0.95) 100%), url('assets/dubai.jpg');
+  }
+  .dest-tag {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+  .dest-city { font-size: 16px; font-weight: 700; }
+  .dest-price { font-size: 12px; color: #CBD5E1; margin-top: 2px; }
+  .dest-price strong { color: var(--tng-yellow); font-size: 14px; }
+  .welcome-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .primary-btn {
+    width: 100%;
+    padding: 15px 24px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0090D9 0%, #38BDF8 100%);
+    border: none;
+    color: #fff;
+    font-family: var(--font-main);
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0,144,217,0.4);
+    transition: all 0.2s ease;
+  }
+  .primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(0,144,217,0.55);
+  }
+  .secondary-link { font-size: 13px; color: #94A3B8; }
+  .secondary-link span { color: var(--tng-sky); font-weight: 600; cursor: pointer; }
 </style>
 </head>
 <body>
 
-<!-- Controls Panel (Top) -->
+<!-- Interactive Controls -->
 <div class="controls-bar">
-  <button id="replayBtn" class="action-btn" onclick="runAnimation()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+  <button class="action-btn" onclick="runAnimation()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
     Replay Animation
   </button>
-
   <div class="speed-group">
-    <button class="spd-btn" onclick="setSpeed(0.5, this)">0.5x Slow-Mo</button>
-    <button class="spd-btn active" onclick="setSpeed(1.0, this)">1.0x Normal</button>
-    <button class="spd-btn" onclick="setSpeed(1.5, this)">1.5x Fast</button>
+    <button class="spd-btn" onclick="setSpeed(0.5, this)">0.5x</button>
+    <button class="spd-btn active" onclick="setSpeed(1.0, this)">1x</button>
+    <button class="spd-btn" onclick="setSpeed(2.0, this)">2x</button>
   </div>
+  <div class="phase-tag" id="phaseTag">Phase 1 / 5 — Split Slide &amp; Settle</div>
 </div>
 
-<!-- Device Container -->
-<div class="device-wrapper" id="deviceWrapper">
+<!-- Mobile Phone Device -->
+<div class="device-wrapper">
   <div class="device-container">
     <div class="glass-glare"></div>
+    <div class="dynamic-island"></div>
+    <div class="status-bar">
+      <span>9:41</span>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M1 4h2v7H1V4zm4-2h2v9H5V2zm4-2h2v11H9V0zm4 4h2v7h-2V4z"/></svg>
+        <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M0 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1-5 0zm5 6a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zm5-3a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0z"/></svg>
+        <svg width="22" height="11" viewBox="0 0 22 11" fill="currentColor"><rect x="1" y="1" width="18" height="9" rx="2" stroke="currentColor" stroke-width="1" fill="none"/><rect x="3" y="3" width="14" height="5" rx="1"/><path d="M20 4v3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/></svg>
+      </div>
+    </div>
 
     <div class="screen">
-      <!-- Clean Deep Navy Atmosphere -->
-      <div class="bg-ambient" id="bgAmbient"></div>
+      <!-- 2D Canvas for Retina Motion Graphics -->
+      <canvas id="motionCanvas"></canvas>
 
-      <!-- Dynamic Island & Status Bar -->
-      <div class="dynamic-island"></div>
-      <div class="status-bar">
-        <span>9:41</span>
-        <div style="display: flex; gap: 6px; align-items: center;">
-          <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M1 4h2v7H1V4zm4-2h2v9H5V2zm4-2h2v11H9V0zm4 4h2v7h-2V4z"/></svg>
-          <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M0 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1-5 0zm5 6a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zm5-3a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0z"/></svg>
-          <svg width="22" height="11" viewBox="0 0 22 11" fill="currentColor"><rect x="1" y="1" width="18" height="9" rx="2" stroke="currentColor" stroke-width="1" fill="none"/><rect x="3" y="3" width="14" height="5" rx="1"/><path d="M20 4v3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/></svg>
-        </div>
-      </div>
-
-      <!-- Soft Light Halo behind Logo -->
-      <div class="logo-glow" id="logoGlow"></div>
-
-      <!-- Motion Canvas for Calligraphic Stylus, Glowing Flight Ribbon & Airplane -->
-      <canvas id="motionCanvas" width="390" height="844"></canvas>
-
-      <!-- Calligraphic Write-On Logo Cluster (T -> r -> i -> p -> n -> G -> o) -->
-      <div class="logo-master-cluster" id="logoCluster">
-        <img src="assets/let-t.png" alt="T" class="letter-item" id="letT">
-        <img src="assets/let-r.png" alt="r" class="letter-item" id="letR">
-        <img src="assets/let-i.png" alt="i" class="letter-item" id="letI">
-        <img src="assets/let-p.png" alt="p" class="letter-item" id="letP">
-        <img src="assets/let-n.png" alt="n" class="letter-item" id="letN">
-        <img src="assets/let-g.png" alt="G" class="letter-item" id="letG">
-        <img src="assets/let-o.png" alt="o" class="letter-item" id="letO">
-      </div>
-
-      <!-- Welcome Screen (Seamless Cross-Fade Transition at 2.3s) -->
+      <!-- Welcome Screen Transition at Animation End -->
       <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-brand-header stagger-item stagger-1">
           <img src="assets/logo-white.png" alt="TripnGo" class="welcome-logo">
           <span class="welcome-tag">Ready for Flight</span>
         </div>
-
         <div class="welcome-hero stagger-item stagger-2">
           <h1 class="welcome-title">
             Explore the world with <span class="highlight-blue">Trip</span><span class="highlight-green">nGo</span>.
           </h1>
-          <p class="welcome-subtitle">
-            Book flights, luxury hotels & premium experiences worldwide instantly.
-          </p>
+          <p class="welcome-subtitle">Book flights, luxury hotels &amp; premium experiences worldwide.</p>
         </div>
-
-        <!-- Quick Category Tabs -->
         <div class="category-tabs stagger-item stagger-3">
           <div class="tab-pill active">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
@@ -581,12 +396,10 @@
             Deals
           </div>
         </div>
-
         <div class="carousel-label-row stagger-item stagger-4">
           <div class="carousel-label">Featured Destinations</div>
           <a href="#" class="carousel-link">Explore all</a>
         </div>
-
         <div class="destinations-carousel stagger-item stagger-4">
           <div class="destination-card dest-paris">
             <div class="dest-tag">Top Choice</div>
@@ -599,7 +412,6 @@
             <div class="dest-price">From <strong>$460</strong></div>
           </div>
         </div>
-
         <div class="welcome-footer stagger-item stagger-5">
           <button class="primary-btn">
             <span>Explore Flights</span>
@@ -613,576 +425,520 @@
 </div>
 
 <script>
-  const canvas = document.getElementById('motionCanvas');
-  const ctx = canvas.getContext('2d');
-  const logoCluster = document.getElementById('logoCluster');
-  const logoGlow = document.getElementById('logoGlow');
-  const welcomeScreen = document.getElementById('welcomeScreen');
-  const bgAmbient = document.getElementById('bgAmbient');
+const canvas = document.getElementById('motionCanvas');
+const ctx = canvas.getContext('2d');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const phaseTag = document.getElementById('phaseTag');
 
-  // Letter Nodes
-  const letters = [
-    document.getElementById('letT'),
-    document.getElementById('letR'),
-    document.getElementById('letI'),
-    document.getElementById('letP'),
-    document.getElementById('letN'),
-    document.getElementById('letG'),
-    document.getElementById('letO')
-  ];
+// Set up Retina High-DPI canvas
+const DPR = window.devicePixelRatio || 2;
+canvas.width = 390 * DPR;
+canvas.height = 844 * DPR;
+ctx.scale(DPR, DPR);
 
-  const BASE_DURATION = 2500; // 2.5s duration
-  let speedMultiplier = 1.0;
-  let startTime = null;
-  let animId = null;
+// Load individual baseline-aligned letter assets
+const letterImgs = {};
+const LETTER_KEYS = ['t','r','i','p','n','g','o'];
+LETTER_KEYS.forEach(k => {
+  const img = new Image();
+  img.src = `assets/let-${k}.png`;
+  letterImgs[k] = img;
+});
 
-  // Harmonic Damped Spring Physics (Zauri Miminoshvili Formula)
-  function spring(t, decay = 8, freq = 16) {
-    if (t <= 0) return 0;
-    if (t >= 1) return 1;
-    return 1 - Math.exp(-decay * t) * Math.cos(freq * t);
-  }
+// Full brand logo
+const fullLogoImg = new Image();
+fullLogoImg.src = 'assets/logo-white.png';
 
-  // =========================================================================
-  // Typographic Stroke Vector Paths for Dynamic Handwriting Reveal
-  // Canvas width: 390, height: 844. Logo centered at (195, 405)
-  // =========================================================================
-  const strokeSpecs = [
-    {
-      name: 'T',
-      delay: 0.18,
-      duration: 0.22,
-      node: letters[0],
-      color: '#0090D9',
-      path: [
-        { x: 80, y: 386 },
-        { x: 124, y: 386 },
-        { x: 104, y: 386 },
-        { x: 104, y: 428 }
-      ]
-    },
-    {
-      name: 'r',
-      delay: 0.32,
-      duration: 0.18,
-      node: letters[1],
-      color: '#1E88C7',
-      path: [
-        { x: 136, y: 396 },
-        { x: 136, y: 428 },
-        { x: 136, y: 404 },
-        { x: 156, y: 396 }
-      ]
-    },
-    {
-      name: 'i',
-      delay: 0.44,
-      duration: 0.18,
-      node: letters[2],
-      color: '#38BDF8',
-      path: [
-        { x: 168, y: 398 },
-        { x: 168, y: 428 },
-        { x: 168, y: 384 } // Dot pop
-      ]
-    },
-    {
-      name: 'p',
-      delay: 0.54,
-      duration: 0.22,
-      node: letters[3],
-      color: '#0090D9',
-      path: [
-        { x: 186, y: 396 },
-        { x: 186, y: 442 },
-        { x: 186, y: 396 },
-        { x: 218, y: 408 },
-        { x: 186, y: 426 }
-      ]
-    },
-    {
-      name: 'n',
-      delay: 0.68,
-      duration: 0.20,
-      node: letters[4],
-      color: '#F5B819',
-      path: [
-        { x: 228, y: 428 },
-        { x: 228, y: 400 },
-        { x: 246, y: 394 },
-        { x: 260, y: 428 }
-      ]
-    },
-    {
-      name: 'G',
-      delay: 0.80,
-      duration: 0.22,
-      node: letters[5],
-      color: '#34D399',
-      path: [
-        { x: 298, y: 394 },
-        { x: 268, y: 404 },
-        { x: 272, y: 428 },
-        { x: 298, y: 424 },
-        { x: 298, y: 412 },
-        { x: 284, y: 412 }
-      ]
-    },
-    {
-      name: 'o',
-      delay: 0.94,
-      duration: 0.20,
-      node: letters[6],
-      color: '#34D399',
-      path: [
-        { x: 326, y: 396 },
-        { x: 308, y: 412 },
-        { x: 326, y: 428 },
-        { x: 344, y: 412 },
-        { x: 326, y: 396 }
-      ]
-    }
-  ];
+// Exact letter horizontal crop offsets relative to full logo coordinate system (W: 2230, H: 409)
+const LETTER_DATA = [
+  { key: 't', origCol: 0,    w: 385 },
+  { key: 'r', origCol: 326,  w: 196 },
+  { key: 'i', origCol: 591,  w: 98  },
+  { key: 'p', origCol: 757,  w: 334 },
+  { key: 'n', origCol: 1159, w: 298 },
+  { key: 'g', origCol: 1527, w: 313 },
+  { key: 'o', origCol: 1908, w: 322 }
+];
+const LOGO_NATIVE_W = 2230;
+const LOGO_NATIVE_H = 409;
 
-  // Helper to sample along multi-point polyline
-  function getPolylinePoint(path, u) {
-    if (path.length === 1) return path[0];
-    const totalSegments = path.length - 1;
-    const seg = Math.min(Math.floor(u * totalSegments), totalSegments - 1);
-    const segU = (u * totalSegments) - seg;
-    const p0 = path[seg];
-    const p1 = path[seg + 1];
-    return {
-      x: p0.x + (p1.x - p0.x) * segU,
-      y: p0.y + (p1.y - p0.y) * segU
-    };
-  }
+// Target display height for wordmark
+const WM_HEIGHT = 34;
+const WM_BASE_SCALE = WM_HEIGHT / LOGO_NATIVE_H; // ~0.08313
+const WM_TOTAL_WIDTH = LOGO_NATIVE_W * WM_BASE_SCALE; // ~185.4px
 
-  // =========================================================================
-  // Continuous Smooth Cubic Bézier Flight Path for Airplane
-  // Perfectly smooth C1-spline taking off from the 'o' letter
-  // =========================================================================
-  const curve = {
-    s1: {
-      p0: { x: 344, y: 412 },    // Launches directly from 'o' loop
-      p1: { x: 395, y: 450 },
-      p2: { x: 360, y: 550 },
-      p3: { x: 220, y: 520 }
-    },
-    s2: {
-      p0: { x: 220, y: 520 },
-      p1: { x: 80,  y: 490 },
-      p2: { x: 25,  y: 340 },
-      p3: { x: 150, y: 260 }
-    },
-    s3: {
-      p0: { x: 150, y: 260 },
-      p1: { x: 275, y: 180 },
-      p2: { x: 375, y: 210 },
-      p3: { x: 440, y: 120 }     // Ascends into stratosphere
-    }
-  };
+// Master timing configuration (approx 12.8s total)
+const TOTAL_DURATION = 12800;
+let speedMultiplier = 1.0;
+let startTime = null;
+let animId = null;
 
-  function getCubicPoint(p0, p1, p2, p3, t) {
-    const cx = 3 * (p1.x - p0.x);
-    const bx = 3 * (p2.x - p1.x) - cx;
-    const ax = p3.x - p0.x - cx - bx;
+// ── High-Precision Easing Helpers ───────────────────────────────────────
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
+function easeInCubic(t) {
+  return t * t * t;
+}
+function easeOutBack(t, c = 1.70158) {
+  return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2);
+}
+function spring(t, decay = 6.0, freq = 13.0) {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  return 1 - Math.exp(-decay * t) * Math.cos(freq * t);
+}
 
-    const cy = 3 * (p1.y - p0.y);
-    const by = 3 * (p2.y - p1.y) - cy;
-    const ay = p3.y - p0.y - cy - by;
+// ── Draw Wordmark with Per-Letter Dynamic Transforms ────────────────────
+// cx, cy: center coordinate of wordmark
+// scale: overall wordmark scale
+// alpha: overall opacity
+// letterTransforms: array of { dy, scaleY, scaleX, alpha, rot } per letter
+function drawWordmark(cx, cy, scale, alpha, letterTransforms) {
+  if (alpha <= 0.002) return;
+  ctx.save();
+  ctx.globalAlpha = alpha;
 
-    const xt = ax * Math.pow(t, 3) + bx * Math.pow(t, 2) + cx * t + p0.x;
-    const yt = ay * Math.pow(t, 3) + by * Math.pow(t, 2) + cy * t + p0.y;
-    return { x: xt, y: yt };
-  }
+  const effectiveScale = WM_BASE_SCALE * scale;
+  const wordmarkWidth = LOGO_NATIVE_W * effectiveScale;
+  const wordmarkHeight = LOGO_NATIVE_H * effectiveScale;
+  const startX = cx - wordmarkWidth / 2;
+  const startY = cy - wordmarkHeight / 2;
 
-  function getContinuousFlightPoint(t) {
-    if (t < 0.333) {
-      return getCubicPoint(curve.s1.p0, curve.s1.p1, curve.s1.p2, curve.s1.p3, t * 3);
-    } else if (t < 0.666) {
-      return getCubicPoint(curve.s2.p0, curve.s2.p1, curve.s2.p2, curve.s2.p3, (t - 0.333) * 3);
+  LETTER_DATA.forEach((item, idx) => {
+    const img = letterImgs[item.key];
+    if (!img || !img.complete) return;
+
+    const t = letterTransforms && letterTransforms[idx] ? letterTransforms[idx] : null;
+    const dy = t && t.dy !== undefined ? t.dy : 0;
+    const dx = t && t.dx !== undefined ? t.dx : 0;
+    const la = t && t.alpha !== undefined ? t.alpha : 1;
+    const sy = t && t.scaleY !== undefined ? t.scaleY : 1;
+    const sx = t && t.scaleX !== undefined ? t.scaleX : 1;
+    const rot = t && t.rot !== undefined ? t.rot : 0;
+
+    if (la <= 0.002) return;
+
+    const lx = startX + item.origCol * effectiveScale + dx;
+    const ly = startY + dy;
+    const lw = item.w * effectiveScale * sx;
+    const lh = wordmarkHeight * sy;
+
+    ctx.save();
+    ctx.globalAlpha = alpha * la;
+
+    if (rot !== 0 || sx !== 1 || sy !== 1) {
+      ctx.translate(lx + lw / 2, ly + lh / 2);
+      ctx.rotate(rot);
+      ctx.drawImage(img, -lw / 2, -lh / 2, lw, lh);
     } else {
-      return getCubicPoint(curve.s3.p0, curve.s3.p1, curve.s3.p2, curve.s3.p3, (t - 0.666) * 3);
+      ctx.drawImage(img, lx, ly, lw, lh);
     }
-  }
-
-  // =========================================================================
-  // Micro Stardust Particle System (Glowing embers trailing the stylus)
-  // =========================================================================
-  let particles = [];
-  function spawnParticles(x, y, color, count = 2) {
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: x + (Math.random() - 0.5) * 6,
-        y: y + (Math.random() - 0.5) * 6,
-        vx: (Math.random() - 0.5) * 1.8,
-        vy: (Math.random() - 0.5) * 1.8 - 0.5,
-        radius: 1.0 + Math.random() * 2.2,
-        color: color,
-        life: 1.0,
-        decay: 0.04 + Math.random() * 0.05
-      });
-    }
-  }
-
-  function updateAndDrawParticles() {
-    ctx.save();
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life -= p.decay;
-
-      if (p.life <= 0) {
-        particles.splice(i, 1);
-        continue;
-      }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius * p.life, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = p.life * 0.85;
-      ctx.shadowColor = p.color;
-      ctx.shadowBlur = 8;
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-
-  // =========================================================================
-  // Draw Stylus Luminous Core Spark with Dynamic Radial Illumination
-  // =========================================================================
-  function drawStylusSpark(x, y, radius, color, glowAlpha) {
-    ctx.save();
-    // Volumetric backlight illumination on navy canvas
-    const ambientLight = ctx.createRadialGradient(x, y, 0, x, y, 45);
-    ambientLight.addColorStop(0, `rgba(56, 189, 248, ${glowAlpha * 0.28})`);
-    ambientLight.addColorStop(0.5, `rgba(0, 144, 217, ${glowAlpha * 0.12})`);
-    ambientLight.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = ambientLight;
-    ctx.beginPath();
-    ctx.arc(x, y, 45, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Outer luminous corona
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 18;
-    ctx.beginPath();
-    ctx.arc(x, y, radius * 2.4, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.globalAlpha = glowAlpha * 0.6;
-    ctx.fill();
-
-    // Pristine white energetic core
-    ctx.beginPath();
-    ctx.arc(x, y, radius * 0.9, 0, Math.PI * 2);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.globalAlpha = 1.0;
-    ctx.shadowColor = '#FFFFFF';
-    ctx.shadowBlur = 10;
-    ctx.fill();
 
     ctx.restore();
-  }
+  });
 
-  // =========================================================================
-  // Draw Modern Supersonic Airplane with Dynamic 3D Banking Tilt
-  // =========================================================================
-  function drawAirplane(x, y, angle, bankAngle, scale, opacity) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.scale(scale, scale * (1 - Math.abs(bankAngle) * 0.25)); // Dynamic 3D perspective foreshortening
-    ctx.globalAlpha = opacity;
+  ctx.restore();
+}
 
-    ctx.shadowColor = 'rgba(0, 144, 217, 0.65)';
-    ctx.shadowBlur = 10;
+// ── Clean Vector-Style TripnGo Icon Emblem ──────────────────────────────
+// x, y: center coordinate
+// scale: size multiplier (base size: 48x48)
+// rot: rotation angle in radians
+// alpha: opacity
+// morphP: 0 = standard squircle emblem, 1 = simplified rounded circle emblem
+function drawIcon(x, y, scale, rot, alpha, morphP = 0) {
+  if (alpha <= 0.002) return;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rot);
+  ctx.scale(scale, scale);
+  ctx.globalAlpha = alpha;
 
-    // Supersonic Delta-Wing Jet Body
+  const s = 48;
+  const r = 14 + morphP * 10; // morphs from rounded squircle (14px) to circular capsule (24px)
+
+  // Minimal Solid Squircle Emblem Badge
+  ctx.beginPath();
+  ctx.roundRect(-s/2, -s/2, s, s, r);
+  ctx.fillStyle = '#211042';
+  ctx.shadowColor = 'rgba(56, 189, 248, 0.28)';
+  ctx.shadowBlur = 14;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Thin clean vector border
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = `rgba(56, 189, 248, ${0.4 + morphP * 0.25})`;
+  ctx.stroke();
+
+  // Aerodynamic T Airplane Wing (Top Bar)
+  ctx.beginPath();
+  ctx.moveTo(-17, -9);
+  ctx.quadraticCurveTo(-11, -10, 16, -9);
+  ctx.lineTo(13, -3.5);
+  ctx.lineTo(-12, -3.5);
+  ctx.closePath();
+  const wg = ctx.createLinearGradient(-17, -9, 16, -3.5);
+  wg.addColorStop(0, '#0090D9');
+  wg.addColorStop(1, '#38BDF8');
+  ctx.fillStyle = wg;
+  ctx.fill();
+
+  // Vertical Fuselage Stem
+  ctx.beginPath();
+  ctx.roundRect(-3.5, -3.5, 7, 18, 2.5);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fill();
+
+  // Aircraft Cabin Window (Oval / Pill)
+  ctx.beginPath();
+  ctx.ellipse(0, 4.2, 2.6, 3.8, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#34D399';
+  ctx.fill();
+  ctx.lineWidth = 1.0;
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.stroke();
+
+  // Aerodynamic Fin Accent (TripnGo Yellow)
+  ctx.beginPath();
+  ctx.moveTo(3.5, 9);
+  ctx.lineTo(9.5, 12.5);
+  ctx.lineTo(3.5, 13.5);
+  ctx.closePath();
+  ctx.fillStyle = '#F5B819';
+  ctx.fill();
+
+  ctx.restore();
+}
+
+// ── Phase 2: Playful Orbital Circular Elements ──────────────────────────
+const ORBIT_ELEMENTS = [
+  { r: 42, spd:  1.6, offset: 0,             size: 4.2, color: '#38BDF8' },
+  { r: 58, spd: -1.2, offset: Math.PI * 0.6, size: 4.8, color: '#34D399' },
+  { r: 74, spd:  1.8, offset: Math.PI * 1.3, size: 3.8, color: '#F5B819' },
+  { r: 52, spd: -2.1, offset: Math.PI * 1.8, size: 3.2, color: '#A78BFA' }
+];
+
+function drawOrbitals(cx, cy, t, alpha) {
+  if (alpha <= 0.002) return;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  ORBIT_ELEMENTS.forEach(dot => {
+    const angle = dot.offset + t * dot.spd * Math.PI * 2;
+    const ox = cx + Math.cos(angle) * dot.r;
+    const oy = cy + Math.sin(angle) * (dot.r * 0.76); // soft 3D perspective ellipse
+
+    // Delicate trail stroke
     ctx.beginPath();
-    ctx.moveTo(20, 0);          // Nose needle
-    ctx.lineTo(6, -3.2);        // Cockpit port
-    ctx.lineTo(-3, -15);        // Port wingtip
-    ctx.lineTo(-7, -15);
-    ctx.lineTo(-4, -2.8);       // Wing root
-    ctx.lineTo(-17, -2.8);
-    ctx.lineTo(-23, -7.5);      // Port stabilizer
-    ctx.lineTo(-26, -7.5);
-    ctx.lineTo(-23, 0);         // Tail engine cone
-    ctx.lineTo(-26, 7.5);
-    ctx.lineTo(-23, 7.5);       // Starboard stabilizer
-    ctx.lineTo(-17, 2.8);
-    ctx.lineTo(-4, 2.8);
-    ctx.lineTo(-7, 15);
-    ctx.lineTo(-3, 15);         // Starboard wingtip
-    ctx.lineTo(6, 3.2);
-    ctx.closePath();
-
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fill();
-
-    // Jet cockpit canopy (Reflective Cyan Glass)
-    ctx.beginPath();
-    ctx.ellipse(4, 0, 6, 2, 0, 0, Math.PI * 2);
-    ctx.fillStyle = '#38BDF8';
-    ctx.fill();
-
-    // Fuselage accent stripe (TripnGo Sky Blue)
-    ctx.beginPath();
-    ctx.moveTo(9, 0);
-    ctx.lineTo(-12, 0);
-    ctx.lineWidth = 1.8;
-    ctx.strokeStyle = '#1E88C7';
+    ctx.arc(cx, cy, dot.r, angle - 0.45, angle);
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = dot.color;
+    ctx.globalAlpha = alpha * 0.25;
     ctx.stroke();
 
-    // Engine Afterburner Flare
+    // Rounded glowing motion bead
     ctx.beginPath();
-    ctx.arc(-24, 0, 2.5, 0, Math.PI * 2);
-    ctx.fillStyle = '#F5B819';
-    ctx.shadowColor = '#F5B819';
-    ctx.shadowBlur = 12;
+    ctx.arc(ox, oy, dot.size, 0, Math.PI * 2);
+    ctx.fillStyle = dot.color;
+    ctx.globalAlpha = alpha * 0.92;
+    ctx.shadowColor = dot.color;
+    ctx.shadowBlur = 8;
     ctx.fill();
+    ctx.shadowBlur = 0;
+  });
 
-    ctx.restore();
-  }
+  ctx.restore();
+}
 
-  // =========================================================================
-  // Draw Specular Crystalline Lens Sheen Sweep across Logo
-  // =========================================================================
-  function drawSpecularSheen(sheenProgress) {
-    if (sheenProgress <= 0 || sheenProgress >= 1.0) return;
-    ctx.save();
-    // Sheen sweeps across the logo area from left (x=60) to right (x=330)
-    const sweepX = 60 + sheenProgress * 270;
-    const sheenGrad = ctx.createLinearGradient(sweepX - 35, 380, sweepX + 35, 430);
-    sheenGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-    sheenGrad.addColorStop(0.4, 'rgba(255, 255, 255, 0.45)');
-    sheenGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.85)');
-    sheenGrad.addColorStop(0.6, 'rgba(56, 189, 248, 0.5)');
-    sheenGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+// ── Phase 3: Short Rounded Speed Streaks ────────────────────────────────
+const SPEED_STREAKS = [
+  { dy: -18, len: 115, spd: 1.4, width: 3.6, color: '#38BDF8', delay: 0.00 },
+  { dy:  -6, len: 155, spd: 1.6, width: 4.2, color: '#FFFFFF', delay: 0.06 },
+  { dy:   7, len: 130, spd: 1.5, width: 3.8, color: '#34D399', delay: 0.03 },
+  { dy:  20, len:  95, spd: 1.2, width: 3.0, color: '#F5B819', delay: 0.12 },
+  { dy: -28, len:  75, spd: 1.3, width: 2.5, color: '#A78BFA', delay: 0.15 }
+];
 
-    ctx.fillStyle = sheenGrad;
+function drawSpeedStreaks(iconX, iconY, progress, alpha) {
+  if (alpha <= 0.002) return;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.lineCap = 'round';
+
+  SPEED_STREAKS.forEach(s => {
+    const lp = Math.max(0, Math.min((progress - s.delay) / 0.68, 1));
+    if (lp <= 0 || lp >= 1) return;
+
+    const e = easeInOutCubic(lp);
+    const headX = iconX - 26 - (1 - e) * s.len * s.spd;
+    const tailX = headX - s.len * Math.sin(lp * Math.PI);
+    if (headX <= tailX) return;
+
     ctx.beginPath();
-    // Parallelogram flash beam across the logo height
-    ctx.moveTo(sweepX - 25, 370);
-    ctx.lineTo(sweepX + 25, 370);
-    ctx.lineTo(sweepX + 5, 440);
-    ctx.lineTo(sweepX - 45, 440);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-  }
+    ctx.moveTo(tailX, iconY + s.dy);
+    ctx.lineTo(headX, iconY + s.dy);
+    ctx.lineWidth = s.width;
+    ctx.strokeStyle = s.color;
+    ctx.shadowColor = s.color;
+    ctx.shadowBlur = 6;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  });
 
-  // =========================================================================
-  // Draw Sonic Ring Shockwave on Logo Settle
-  // =========================================================================
-  function drawSonicPulse(pulseProgress) {
-    if (pulseProgress <= 0 || pulseProgress >= 1.0) return;
-    ctx.save();
-    const radius = 25 + pulseProgress * 120;
-    const alpha = (1 - pulseProgress) * 0.45;
+  ctx.restore();
+}
+
+// ── Phase 5 Finale: Smooth Curved Orbit-Like Stroke ─────────────────────
+function drawFinaleOrbit(cx, cy, progress, alpha) {
+  if (alpha <= 0.002 || progress <= 0) return;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.lineCap = 'round';
+
+  const rx = 62, ry = 48;
+  const tilt = -0.22; // subtle dynamic angle
+  const startAngle = -Math.PI * 0.8;
+  const endAngle = startAngle + progress * Math.PI * 2;
+
+  // Orbit gradient
+  const grad = ctx.createLinearGradient(cx - rx, cy, cx + rx, cy);
+  grad.addColorStop(0, '#0090D9');
+  grad.addColorStop(0.5, '#34D399');
+  grad.addColorStop(1, '#F5B819');
+
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry, tilt, startAngle, endAngle);
+  ctx.lineWidth = 2.8;
+  ctx.strokeStyle = grad;
+  ctx.shadowColor = '#38BDF8';
+  ctx.shadowBlur = 10;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Leading glowing rounded bead
+  if (progress < 0.99) {
+    const bx = cx + Math.cos(endAngle) * rx * Math.cos(tilt) - Math.sin(endAngle) * ry * Math.sin(tilt);
+    const by = cy + Math.cos(endAngle) * rx * Math.sin(tilt) + Math.sin(endAngle) * ry * Math.cos(tilt);
     ctx.beginPath();
-    ctx.arc(195, 410, radius, 0, Math.PI * 2);
-    ctx.lineWidth = 2.5 * (1 - pulseProgress);
-    ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+    ctx.arc(bx, by, 4.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
     ctx.shadowColor = '#38BDF8';
     ctx.shadowBlur = 12;
-    ctx.stroke();
-    ctx.restore();
+    ctx.fill();
+    ctx.shadowBlur = 0;
   }
 
-  // =========================================================================
-  // Master 60 FPS Animation Engine (2.5s Execution)
-  // =========================================================================
-  function animate(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const duration = BASE_DURATION / speedMultiplier;
-    const elapsed = timestamp - startTime;
-    const progress = Math.min(elapsed / duration, 1.0);
-    const sec = progress * 2.5;
+  ctx.restore();
+}
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+// ── Master Animation Loop (12.8s) ───────────────────────────────────────
+function animate(ts) {
+  if (!startTime) startTime = ts;
+  const duration = TOTAL_DURATION / speedMultiplier;
+  const elapsed = ts - startTime;
+  const progress = Math.min(elapsed / duration, 1);
+  const sec = progress * 12.8;
 
-    // =========================================================================
-    // Phase 1: 0.18s - 1.14s: Calligraphic Stylus & Letter Vector Reveal
-    // =========================================================================
-    let activeStylus = null;
+  // Clear canvas
+  ctx.clearRect(0, 0, 390, 844);
 
-    strokeSpecs.forEach((spec, i) => {
-      const node = spec.node;
-      if (sec >= spec.delay) {
-        const u = Math.min((sec - spec.delay) / spec.duration, 1.0);
-        const s = spring(u, 7, 15);
+  const CX = 195;
+  const CY = 405;
 
-        // Dynamic fluid write-on wipe from left to right
-        node.style.opacity = Math.min(u * 3.2, 1.0);
-        const wipePercent = (1 - u) * 100;
-        node.style.clipPath = `inset(0 ${wipePercent}% 0 0)`;
+  // Centered lockup horizontal positions
+  // Icon at left of wordmark
+  const LOCKUP_ICON_X = 96;
+  const LOCKUP_WM_X = 224;
 
-        // Staggered physical spring bounce per letter
-        const scaleVal = 0.90 + 0.10 * s;
-        node.style.transform = `scale(${scaleVal})`;
+  // ──────────────────────────────────────────────────────────────────────
+  // PHASE 1: 0.0 – 2.8s  |  Split Slide & Settle
+  // Icon and wordmark initially separated, smoothly slide into lockup
+  // ──────────────────────────────────────────────────────────────────────
+  if (sec < 2.8) {
+    phaseTag.textContent = 'Phase 1 / 5 — Split Slide & Settle';
+    const p = Math.min(sec / 2.3, 1);
+    const e = spring(p, 5.5, 11);
 
-        // Sample exact typographic vector path for stylus position
-        if (u > 0 && u < 1.0) {
-          const pt = getPolylinePoint(spec.path, u);
-          activeStylus = { x: pt.x, y: pt.y, color: spec.color, alpha: Math.sin(u * Math.PI) };
-          spawnParticles(pt.x, pt.y, spec.color, 1);
-        }
-      } else {
-        node.style.opacity = '0';
-        node.style.clipPath = 'inset(0 100% 0 0)';
-      }
-    });
+    // Icon slides in from left (-70px) to lockup position
+    const iconStartX = 25;
+    const currentIconX = iconStartX + (LOCKUP_ICON_X - iconStartX) * e;
+    const iconAlpha = Math.min(p * 2.8, 1);
+    drawIcon(currentIconX, CY, 1.0, 0, iconAlpha, 0);
 
-    // Draw active calligraphic spark & stardust particles
-    if (activeStylus && sec < 1.15) {
-      drawStylusSpark(activeStylus.x, activeStylus.y, 4.0, activeStylus.color, activeStylus.alpha);
-    }
-    updateAndDrawParticles();
+    // Wordmark fades and slides in from right (+60px) beside icon
+    const wmStartX = 280;
+    const currentWmX = wmStartX - (wmStartX - LOCKUP_WM_X) * e;
+    const wmAlpha = Math.min(Math.max(0, (sec - 0.25) / 1.5), 1);
+    drawWordmark(currentWmX, CY, 1.0, wmAlpha);
+  }
 
-    // Ambient Halo activates gently as letters complete
-    if (sec >= 0.45) {
-      const u = Math.min((sec - 0.45) / 0.6, 1.0);
-      logoGlow.style.opacity = `${u * 0.8}`;
-      logoGlow.style.transform = `translate(-50%, -50%) scale(${0.85 + 0.15 * u})`;
-    }
+  // ──────────────────────────────────────────────────────────────────────
+  // PHASE 2: 2.8 – 5.8s  |  Simplified Icon Morph & Playful Orbitals
+  // Wordmark dissolves, icon centers & rotates, circular dots orbit
+  // ──────────────────────────────────────────────────────────────────────
+  else if (sec < 5.8) {
+    phaseTag.textContent = 'Phase 2 / 5 — Icon Morph & Orbitals';
+    const p = (sec - 2.8) / 3.0;
 
-    // =========================================================================
-    // Phase 2: 1.14s - 2.18s: Jet Flight, Banking Dynamics & Glowing Contrail
-    // =========================================================================
-    if (sec >= 1.14 && sec <= 2.22) {
-      const flightP = Math.min((sec - 1.14) / 0.98, 1.0);
-      // Fluid cubic velocity profile
-      const easeFlight = flightP < 0.5
-        ? 4 * flightP * flightP * flightP
-        : 1 - Math.pow(-2 * flightP + 2, 3) / 2;
-
-      const totalSamples = 100;
-      const currentSamples = Math.floor(totalSamples * easeFlight);
-
-      if (currentSamples > 1) {
-        ctx.save();
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-
-        // Wide soft glow under-ribbon
-        ctx.shadowColor = 'rgba(0, 144, 217, 0.5)';
-        ctx.shadowBlur = 12;
-
-        for (let i = 0; i < currentSamples - 1; i++) {
-          const t1 = i / totalSamples;
-          const t2 = (i + 1) / totalSamples;
-
-          const pt1 = getContinuousFlightPoint(t1);
-          const pt2 = getContinuousFlightPoint(t2);
-
-          // Tapered organic width (1.8px to 3.4px)
-          ctx.lineWidth = 1.8 + 1.6 * Math.sin((i / currentSamples) * Math.PI);
-
-          // TripnGo Signature Gradient: Sky Blue -> Mint Green -> Gold
-          const grad = ctx.createLinearGradient(pt1.x, pt1.y, pt2.x, pt2.y);
-          if (t1 < 0.36) {
-            grad.addColorStop(0, 'rgba(0, 144, 217, 0.15)');
-            grad.addColorStop(1, 'rgba(0, 144, 217, 0.95)');
-          } else if (t1 < 0.70) {
-            grad.addColorStop(0, 'rgba(0, 144, 217, 0.95)');
-            grad.addColorStop(1, 'rgba(52, 211, 153, 0.98)');
-          } else {
-            grad.addColorStop(0, 'rgba(52, 211, 153, 0.98)');
-            grad.addColorStop(1, 'rgba(245, 184, 25, 1)');
-          }
-
-          ctx.beginPath();
-          ctx.moveTo(pt1.x, pt1.y);
-          ctx.lineTo(pt2.x, pt2.y);
-          ctx.strokeStyle = grad;
-          ctx.stroke();
-        }
-
-        ctx.restore();
-      }
-
-      // Draw Jet with 3D Banking Angle along trajectory
-      if (easeFlight > 0 && easeFlight < 1) {
-        const curPt = getContinuousFlightPoint(easeFlight);
-        const nextPt = getContinuousFlightPoint(Math.min(easeFlight + 0.014, 1.0));
-        const prevPt = getContinuousFlightPoint(Math.max(easeFlight - 0.014, 0.0));
-
-        const heading = Math.atan2(nextPt.y - curPt.y, nextPt.x - curPt.x);
-        const prevHeading = Math.atan2(curPt.y - prevPt.y, curPt.x - prevPt.x);
-        const bankAngle = (heading - prevHeading) * 12; // Natural banking into curves
-
-        const planeOpacity = flightP < 0.10 ? flightP * 10 : (flightP > 0.88 ? (1 - flightP) * 8.3 : 1.0);
-        const planeScale = 0.74 + 0.26 * Math.sin(flightP * Math.PI);
-
-        drawAirplane(curPt.x, curPt.y, heading, bankAngle, planeScale, Math.min(planeOpacity, 1.0));
-        spawnParticles(curPt.x, curPt.y, '#38BDF8', 1);
-      }
+    // Wordmark smoothly collapses & fades away
+    const wmExitP = Math.min(p / 0.3, 1);
+    const wmAlpha = 1 - easeOutCubic(wmExitP);
+    const wmScale = 1 - 0.2 * easeOutCubic(wmExitP);
+    if (wmAlpha > 0.01) {
+      drawWordmark(LOCKUP_WM_X + 18 * wmExitP, CY, wmScale, wmAlpha);
     }
 
-    // =========================================================================
-    // Phase 3: 1.95s - 2.50s: Specular Sheen, Sonic Pulse & Elastic Settle
-    // =========================================================================
-    if (sec >= 1.95) {
-      // Specular sheen sweeps cleanly across brand name
-      const sheenP = Math.min((sec - 1.95) / 0.35, 1.0);
-      drawSpecularSheen(sheenP);
+    // Icon glides to dead center and morphs to simplified rounded shape
+    const centerP = Math.min(p / 0.42, 1);
+    const iconX = LOCKUP_ICON_X + (CX - LOCKUP_ICON_X) * easeInOutCubic(centerP);
+
+    // Subtle playful rotation (floating oscillation) & breathing scale
+    const morphP = Math.min(p / 0.5, 1);
+    const rot = Math.sin(p * Math.PI * 2) * 0.18 * (1 - p * 0.35);
+    const scale = 1.0 + 0.14 * Math.sin(p * Math.PI);
+    drawIcon(iconX, CY, scale, rot, 1, morphP);
+
+    // Playful small circular orbital dots dance around icon
+    const dotsFadeIn = Math.min(Math.max(0, (p - 0.1) / 0.22), 1);
+    const dotsFadeOut = p > 0.82 ? 1 - (p - 0.82) / 0.18 : 1;
+    drawOrbitals(CX, CY, p, dotsFadeIn * dotsFadeOut);
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // PHASE 3: 5.8 – 8.6s  |  Fast Speed Dash & Rounded Streaks
+  // Windup left, fast dash right with short rounded streak lines, settle
+  // ──────────────────────────────────────────────────────────────────────
+  else if (sec < 8.6) {
+    phaseTag.textContent = 'Phase 3 / 5 — Speed Dash & Streaks';
+    const p = (sec - 5.8) / 2.8;
+
+    let iconX = CX;
+    let rot = 0;
+    let streakAlpha = 0;
+
+    if (p < 0.20) {
+      // Anticipation windup to the left
+      const u = p / 0.20;
+      iconX = CX - 36 * Math.sin(u * Math.PI / 2);
+      rot = -0.16 * u;
+    } else if (p < 0.54) {
+      // Fast horizontal dash to the right with speed streak lines
+      const u = (p - 0.20) / 0.34;
+      const cu = easeInOutCubic(u);
+      iconX = (CX - 36) + (CX + 58 - (CX - 36)) * cu;
+      rot = 0.14 * Math.sin(u * Math.PI);
+      streakAlpha = Math.sin(u * Math.PI);
+      drawSpeedStreaks(iconX, CY, u, streakAlpha);
+    } else {
+      // Smooth spring settle back into lockup position
+      const u = (p - 0.54) / 0.46;
+      const s = spring(u, 6, 12);
+      iconX = (CX + 58) + (LOCKUP_ICON_X - (CX + 58)) * s;
     }
 
-    if (sec >= 2.02) {
-      // Sonic shockwave ring pulse
-      const pulseP = Math.min((sec - 2.02) / 0.40, 1.0);
-      drawSonicPulse(pulseP);
+    drawIcon(iconX, CY, 1.0, rot, 1, 0);
 
-      // Staggered harmonic bounce across letters
-      const settleP = Math.min((sec - 2.02) / 0.48, 1.0);
-      const bounce = Math.exp(-6 * settleP) * Math.sin(14 * settleP * Math.PI) * 0.06;
-
-      logoCluster.style.transform = `translate(-50%, -50%) scale(${1.0 + bounce})`;
-      logoGlow.style.opacity = `${0.75 + bounce * 3}`;
-      logoGlow.style.transform = `translate(-50%, -50%) scale(${1.0 + bounce * 2})`;
-
-      if (sec >= 2.28) {
-        welcomeScreen.classList.add('active');
-      }
-    }
-
-    if (progress < 1.0) {
-      animId = requestAnimationFrame(animate);
+    // Wordmark settles back into clean centered composition
+    if (p > 0.56) {
+      const u = (p - 0.56) / 0.44;
+      const wa = Math.min(u * 2.2, 1);
+      const ws = 0.85 + 0.15 * spring(u, 5, 10);
+      drawWordmark(LOCKUP_WM_X, CY, ws, wa);
     }
   }
 
-  function runAnimation() {
-    if (animId) cancelAnimationFrame(animId);
-    startTime = null;
-    particles = [];
-    letters.forEach(node => {
-      node.style.opacity = '0';
-      node.style.clipPath = 'inset(0 100% 0 0)';
-      node.style.transform = 'scale(0.90)';
-    });
-    logoCluster.style.transform = 'translate(-50%, -50%) scale(1)';
-    logoGlow.style.opacity = '0';
-    welcomeScreen.classList.remove('active');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ──────────────────────────────────────────────────────────────────────
+  // PHASE 4: 8.6 – 10.8s  |  Kinetic Letter Morph & Dynamic Wave Reveal
+  // Letters playfully morph and ripple in a staggered wave, then dissolve
+  // ──────────────────────────────────────────────────────────────────────
+  else if (sec < 10.8) {
+    phaseTag.textContent = 'Phase 4 / 5 — Kinetic Letter Morph';
+    const p = (sec - 8.6) / 2.2;
 
+    // Staggered per-letter kinetic displacement & morph wave
+    const letterTransforms = LETTER_DATA.map((item, idx) => {
+      const delay = idx * 0.08;
+      const lp = Math.max(0, Math.min((p - delay) / 0.42, 1));
+
+      // Playful bounce & vertical squash-and-stretch
+      const bounce = Math.sin(lp * Math.PI * 2.5) * 15 * (1 - lp);
+      const sy = 1 + 0.16 * Math.sin(lp * Math.PI);
+      const sx = 1 - 0.08 * Math.sin(lp * Math.PI);
+
+      // Dissolve in second half
+      let a = 1;
+      if (p > 0.6) {
+        a = Math.max(0, 1 - (p - 0.6) / 0.32);
+      }
+
+      return { dy: bounce, scaleY: sy, scaleX: sx, alpha: a };
+    });
+
+    // Icon smoothly migrates from lockup to screen center
+    let iconX = LOCKUP_ICON_X;
+    if (p > 0.58) {
+      const u = easeInOutCubic((p - 0.58) / 0.38);
+      iconX = LOCKUP_ICON_X + (CX - LOCKUP_ICON_X) * u;
+    }
+
+    drawIcon(iconX, CY, 1.0, 0, 1, Math.min(p * 1.5, 1));
+
+    const overallWmA = p > 0.6 ? Math.max(0, 1 - (p - 0.6) / 0.32) : 1;
+    drawWordmark(LOCKUP_WM_X, CY, 1.0, overallWmA, letterTransforms);
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // PHASE 5: 10.8 – 12.8s  |  Final Standalone Icon & Curved Orbit Stroke
+  // Centered icon finishes with smooth curved orbit stroke drawing around
+  // ──────────────────────────────────────────────────────────────────────
+  else {
+    phaseTag.textContent = 'Phase 5 / 5 — Orbit Lockup & Finish';
+    const p = (sec - 10.8) / 2.0;
+
+    // Settle bounce on the standalone icon
+    const settleP = Math.min(p / 0.4, 1);
+    const iconScale = 1.0 + 0.08 * (1 - easeOutCubic(settleP));
+    drawIcon(CX, CY, iconScale, 0, 1, 1);
+
+    // Smooth curved orbit stroke draws 360° around centered icon
+    const orbitP = Math.min(p / 0.72, 1);
+    drawFinaleOrbit(CX, CY, easeInOutCubic(orbitP), 1);
+
+    // Seamless cross-fade transition into the TripnGo welcome screen
+    if (sec >= 12.4) {
+      welcomeScreen.classList.add('active');
+    }
+  }
+
+  if (progress < 1) {
     animId = requestAnimationFrame(animate);
   }
+}
 
-  function setSpeed(spd, btn) {
-    speedMultiplier = spd;
-    document.querySelectorAll('.spd-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    runAnimation();
-  }
+// ── Control Handlers ────────────────────────────────────────────────────
+function runAnimation() {
+  if (animId) cancelAnimationFrame(animId);
+  startTime = null;
+  welcomeScreen.classList.remove('active');
+  ctx.clearRect(0, 0, 390, 844);
+  animId = requestAnimationFrame(animate);
+}
 
-  // Start on initial page load
-  window.addEventListener('load', () => {
-    runAnimation();
-  });
+function setSpeed(speed, btn) {
+  speedMultiplier = speed;
+  document.querySelectorAll('.spd-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  runAnimation();
+}
+
+window.addEventListener('load', () => {
+  runAnimation();
+});
 </script>
-
 </body>
 </html>
