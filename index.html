@@ -346,8 +346,8 @@
   </button>
   <div class="speed-group">
     <button class="spd-btn" onclick="setSpeed(0.5, this)">0.5x</button>
-    <button class="spd-btn active" onclick="setSpeed(1.0, this)">1x</button>
-    <button class="spd-btn" onclick="setSpeed(2.0, this)">2x</button>
+    <button class="spd-btn" onclick="setSpeed(1.0, this)">1x</button>
+    <button class="spd-btn active" onclick="setSpeed(2.0, this)">2x</button>
   </div>
   <div class="phase-tag" id="phaseTag">Phase 1 / 5 — Split Slide &amp; Settle</div>
 </div>
@@ -469,7 +469,7 @@ const WM_TOTAL_WIDTH = LOGO_NATIVE_W * WM_BASE_SCALE; // ~185.4px
 
 // Master timing configuration (approx 12.8s total)
 const TOTAL_DURATION = 12800;
-let speedMultiplier = 1.0;
+let speedMultiplier = 2.0;
 let startTime = null;
 let animId = null;
 
