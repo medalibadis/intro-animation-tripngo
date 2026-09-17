@@ -441,9 +441,9 @@
     cursor: pointer;
   }
 
-  /* Controls Panel */
+  /* Controls Panel (Top) */
   .controls-bar {
-    margin-top: 20px;
+    margin-bottom: 24px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -498,6 +498,20 @@
 </style>
 </head>
 <body>
+
+<!-- Controls Panel (Top) -->
+<div class="controls-bar">
+  <button id="replayBtn" class="action-btn" onclick="runAnimation()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+    Replay Animation
+  </button>
+
+  <div class="speed-group">
+    <button class="spd-btn" onclick="setSpeed(0.5, this)">0.5x Slow-Mo</button>
+    <button class="spd-btn active" onclick="setSpeed(1.0, this)">1.0x Normal</button>
+    <button class="spd-btn" onclick="setSpeed(1.5, this)">1.5x Fast</button>
+  </div>
+</div>
 
 <!-- Device Container -->
 <div class="device-wrapper" id="deviceWrapper">
@@ -595,20 +609,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- Controls Panel -->
-<div class="controls-bar">
-  <button id="replayBtn" class="action-btn" onclick="runAnimation()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-    Replay Animation
-  </button>
-
-  <div class="speed-group">
-    <button class="spd-btn" onclick="setSpeed(0.5, this)">0.5x Slow-Mo</button>
-    <button class="spd-btn active" onclick="setSpeed(1.0, this)">1.0x Normal</button>
-    <button class="spd-btn" onclick="setSpeed(1.5, this)">1.5x Fast</button>
   </div>
 </div>
 
