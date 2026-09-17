@@ -35,64 +35,15 @@
     min-height: 100vh;
     font-family: var(--font-main);
     overflow-x: hidden;
-    padding: 20px 16px 36px;
+    padding: 24px 16px;
     color: #ffffff;
-    perspective: 1400px;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Header */
-  .preview-header {
-    margin-bottom: 16px;
-    text-align: center;
-    z-index: 30;
-  }
-  .brand-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(30, 136, 199, 0.12);
-    border: 1px solid rgba(0, 144, 217, 0.35);
-    color: #38bdf8;
-    padding: 5px 16px;
-    border-radius: 9999px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-  }
-  .brand-pill .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--tng-green);
-    box-shadow: 0 0 10px var(--tng-green);
-    animation: livePulse 2s infinite ease-in-out;
-  }
-  @keyframes livePulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.4); opacity: 0.7; }
-  }
-  .preview-title {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .preview-desc {
-    font-size: 13px;
-    color: #94a3b8;
-    margin-top: 3px;
-  }
-
-  /* 3D Phone Chassis */
+  /* Phone Chassis */
   .device-wrapper {
     position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.3, 1);
-    margin: 4px 0;
+    margin: 0 auto;
   }
 
   .device-container {
@@ -548,13 +499,7 @@
 </head>
 <body>
 
-<div class="preview-header">
-  <div class="brand-pill"><div class="dot"></div> Zauri Miminoshvili Signature Motion • 2.5s</div>
-  <h1 class="preview-title">TripnGo Brand Motion</h1>
-  <p class="preview-desc">Calligraphic Write-On &bull; Stylus Spark &bull; Orbital Ribbon Flight &bull; Spring Settle</p>
-</div>
-
-<!-- 3D Device Container -->
+<!-- Device Container -->
 <div class="device-wrapper" id="deviceWrapper">
   <div class="device-container">
     <div class="glass-glare"></div>
@@ -997,25 +942,6 @@
     btn.classList.add('active');
     runAnimation();
   }
-
-  // Interactive 3D tilt on mouse hover
-  window.addEventListener('mousemove', (e) => {
-    const rect = deviceWrapper.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-
-    const dx = (e.clientX - cx) / (window.innerWidth / 2);
-    const dy = (e.clientY - cy) / (window.innerHeight / 2);
-
-    const rx = -dy * 8;
-    const ry = dx * 8;
-
-    deviceWrapper.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  });
-
-  window.addEventListener('mouseleave', () => {
-    deviceWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
-  });
 
   // Start on initial page load
   window.addEventListener('load', () => {
